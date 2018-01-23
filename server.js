@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 
-var seed = require('./routes/seed');
+var seed = require('./server/routes/seed');
+var users = require('./server/routes/users');
 
 var app = express();
 app.use(compression());
@@ -14,16 +15,16 @@ app.use(compression());
 // load env variables
 require('dotenv').load()
 
-
 // connect to Mongo DB with mongoose
-require('./config/database')
+require('./server/config/database')
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'app')));
 
 app.use('/api/seed', seed);
+app.use('/api/users', users);
 
 module.exports = app;
