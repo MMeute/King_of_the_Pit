@@ -1,14 +1,40 @@
 <div class="container">
-    
+
     <div>
         <a href="logo"></a>
     </div>
 
+    <div class="wrapper">
+
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Collapsible Sidebar</div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#">Search Tickets By City</a>
+                </li>
+                <li>
+                    <a href="#">Search Tickets By Band</a>
+                </li>
+                <li>
+                    <a href="#">Leader Board</a>
+                </li>
+                <li>
+                    <a href="#">Past Shows</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
     <div class="userCard">
-        <h2>{{ userName }}</h2>
-        <h2>{{ pitPoints }}</h2>
-        <h2>{{ rank }}</h2>
-        <h2>{{ genre }}</h2>
+        <h2>{{ user.userName }}</h2>
+        <h2>{{ user.pitPoints }}</h2>
+        <h2>{{ user.rank }}</h2>
+        <h2>{{ user.genre }}</h2>
+        <h2>{{ user.pastShows }}</h2>
+        <button class="btn btn-info" ui-sref="userUpdate({id: {{ user.id }} })">Update</button>
+        <button class="btn btn-danger" ng-click="destroyUser()">Delete</button>
     </div>
 
 </div>
