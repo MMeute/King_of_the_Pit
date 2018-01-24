@@ -1,5 +1,5 @@
-const { User } = require('../models/user')
-const _ = require('lodash')
+var { User } = require('../models/user')
+var _ = require('lodash')
 
 function index(req, res) {
   User
@@ -32,7 +32,7 @@ function show(req, res) {
 }
 
 function update(req, res) {
-  var body = _.pick(req.body, ["firstName", "lastName", "email", "password"])
+  var body = _.pick(req.body, ["id", "firstName", "lastName", "userName", "password", "email", "cellNumber", "alternateNumber", "dob", "address1", "address2", "city", "state", "zip", "pitPoints", "genre"])
 
   // $set allows us to set the body as the new value of the record
   // {new: true} means that what gets returned in the callback is the new record - defaults to old.
@@ -64,4 +64,17 @@ function destroy(req, res) {
   })
 }
 
-module.exports = { index, show, update, destroy }
+function addUpcomingShowToUser(req, res) {
+  
+}
+
+function removeUpcomingShowFromUser(req, res) {
+  
+}
+
+function addPastShowToUser(req, res) {
+  
+}
+
+
+module.exports = { index, show, update, destroy, addUpcomingShowToUser, removeUpcomingShowFromUser, addPastShowToUser }

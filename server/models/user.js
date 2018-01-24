@@ -1,15 +1,10 @@
+var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// var{ showSchema } = require('./show')
-// var{ conversationSchema }= require('./conversation')
-
+var { showSchema } = require('./show')
 
 var userSchema = new Schema({
-    id: {
-        type: Number,
-        required: true
-    },
     firstName: {
         type: String,
         required: true,
@@ -55,20 +50,22 @@ var userSchema = new Schema({
     zip: String,
     pitPoints: Number,
     genre: String,
-    pastShows: [],//showSchema
-    conversations: []//messageSchema
+    pastShows: [showSchema],
+    upcomingShows: [showSchema]
 },
-{
-    timestamps: true
-})
+    {
+        timestamps: true
+    })
 
-userSchema.pre('save', function(next) {
-    var user = this
+userSchema.pre('save', function (next) {
+    var user = this;
 
-    if(user.isModified('password')) {
-        bcrypt.genSalt(10, function(err, salt) {
-            user.password = hash;
-            next();
+    if (user.isModified('password')) {
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(user.password, salt, function (err, hash) {
+                user.password = hash;
+                next();
+            })
         })
     }
     else {
@@ -77,4 +74,5 @@ userSchema.pre('save', function(next) {
 })
 
 var User = mongoose.model('User', userSchema)
+
 module.exports = { User, userSchema }

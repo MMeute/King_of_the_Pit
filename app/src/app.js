@@ -1,19 +1,40 @@
-var app = angular.module('kingOfThePitApp', ['ui-router'])
+var app = angular.module('kingOfThePitApp', ['ui-router', 'LocalStorageModule'])
 
 app.config(function($stateProvider, $ulrRouterProvider) {
+
     $urlRouterProvider.otherwise("/");
+
     $stateProvider
-        .state("login", {
+        .state("home", {
             url: "/",
-            templateUrl: "./src/views/login.html",
+            templateUrl: "./views/login.html",
             controller: "loginController"
         })
         .state("profile", {
-            url: "/",
-            templateUrl: "./src/views/profile.html",
+            url: "/profile",
+            templateUrl: "./views/profile.html",
             controller: "profileController"
         })
 })
-app.controller("homeController", function($scope, homeService) {
-    $scope.person = homeService.getPerson()
-})
+
+app.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('authInterceptorService');
+  });
+
+app.run(['authService', function (authService) {
+    authService.getAuthData();
+}]);
+
+function authenticate($q, authService, $state, $timeout) {
+	console.log(authService.authentication.isAuth);
+  if (authService.authentication.isAuth) {
+    return $q.when()
+  }
+	else {
+    $timeout(function() {
+      $state.go('login')
+    })
+
+    return $q.reject()
+  }
+}

@@ -32,43 +32,56 @@ gulp.task('styles', function() {
 })
 
 //Scripts
-gulp.task('scripts', function() {
-    console.log("-----Scripts task has run.-----")
-
-    //Libs -> Modules -> Services -> Controllers -> Filters    //all services, controllers, app.js with routes
+//Scripts
+gulp.task('scripts', function () {
+    console.log('--------');
+    console.log('JS Tasks');
+    console.log('--------');
+    console.log('');
+  
+    // Modules -> Services -> Controllers -> Filters
     return gulp.src([
-        './app/src/app.js',
-        './app/src/services/userService.js',
-        './app/src/controllers/userController.js'
-    ])
-    .pipe(plumber(function(err) {
+        'app/src/app.js',
+        'app/src/js/ui-router.min.js',
+        'app/src/js/angular-local-storage.min.js',
+        'app/src/services/authInterceptorService.js',
+        'app/src/services/authService.js',
+        'app/src/services/userService.js',
+        'app/src/controllers/loginController.js',
+        'app/src/controllers/userController.js'
+      ])
+      .pipe(plumber(function(err) {
         console.log('');
-        console.log("---------------------");
-        console.log('CSS Task Error:');
-        console.log('---------------------');
+        console.log('--------------');
+        console.log('JS Task Error:');
+        console.log('--------------');
         console.log('');
         console.log(err);
         this.emit('end')
-    }))
-    .pipe(sourcemaps.init())
-    .pipe(babel({
+      }))
+      .pipe(sourcemaps.init())
+      .pipe(babel({
         presets: ['es2015']
-    }))
-    .pipe(uglify({mangle: false}))
-    .pipe(concat('scripts.js'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./app/dist/js/'))
-})
-
-//Default
-gulp.task('default', ['styles', 'scripts'], function() {
-    console.log("SCRIPTS TASK HAS RUN");
-})
-
-//Watch
-gulp.task('watch', ['default'], function() {
-    console.log("SCRIPTS TASK HAS RUN");
-
+      }))
+      .pipe(uglify({mangle: false}))
+      .pipe(concat('scripts.js'))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('app/dist/js/'))
+  });
+  
+  gulp.task('default', ['styles', 'scripts'], function() {
+    console.log('------------');
+    console.log('DEFAULT Task');
+    console.log('------------');
+    console.log('');
+  })
+  
+  gulp.task('watch', ['default'], function() {
+    console.log('----------');
+    console.log('WATCH Task');
+    console.log('----------');
+    console.log('');
+  
+    gulp.watch('app/src/**/*.js', ['scripts'])
     gulp.watch('app/src/**/*.css', ['styles'])
-    gulp.watch('app/src/**/*.css', ['scripts'])
-})
+  })

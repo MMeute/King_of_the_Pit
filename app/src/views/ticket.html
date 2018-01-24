@@ -1,0 +1,27 @@
+<div class="container">
+    <div>
+        <a href="logo"></a>
+    </div>
+
+    <h1 class="hero">Ticket!</h1>
+
+    <div class="row ticketSection">
+        <div class="section-header">
+            <h1 class="section-heading">{{ ticket.artistName }}</h1>
+        </div>
+        <div class="section-body">
+            <p>
+                <strong>Date:</strong> {{ ticket.date | date: 'longDate'}}</p>
+            <p>
+                <strong>Price:</strong> {{ ticket.price }}</p>
+            <p>
+                <strong>Section:</strong> {{ ticket.section }}</p>
+            <p>
+                <strong>Row:</strong> {{ ticket.row }}</p>
+            <p>
+                <strong>Seat:</strong> {{ ticket.seat }}</p>
+            <button class="btn btn-info" ui-sref="ticketsUpdate({id: ticket._id })">Update</button>
+            <button class="btn btn-danger" ng-click="deleteTicket()">Delete</button>
+        </div>
+
+    </div>
