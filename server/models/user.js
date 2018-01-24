@@ -55,8 +55,7 @@ var userSchema = new Schema({
     zip: String,
     pitPoints: Number,
     genre: String,
-    pastShows: [],//showSchema
-    conversations: []//messageSchema
+    pastShows: []//showSchema
 },
 {
     timestamps: true

@@ -3,6 +3,7 @@
         <a href="logo"></a>
     </div>
     <div class="loginCard" ng-show="true">
+        <h1 class="text-center">Login</h1>
 
         <div>
             <label>Email</label>
@@ -14,9 +15,9 @@
             <input type="password" class="form-control" ng-model="user.password">
         </div>
 
-        <button class="btn btn-success btn-lg btn-block" data-ng-click="login()">Login</button>
+        <button class="btn btn-success btn-lg btn-block" ng-click="login()">Login</button>
 
-        <button class="btn btn-info btn-lg btn-block" data-ng-click="showRegisterForm()">Sign Up</button>
+        <button class="btn btn-info btn-lg btn-block" ng-click="showRegisterForm()">Sign Up</button>
 
         <div data-ng-if="loginError">
             <p>Please provide your email and password!</p>
